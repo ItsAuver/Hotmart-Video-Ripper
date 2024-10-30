@@ -11,7 +11,6 @@ use aes::Aes128;
 use cipher::{BlockDecryptMut, KeyIvInit, block_padding::Pkcs7};
 use cbc::Decryptor;
 
-// Update the main function to support both CLI and GUI modes:
 #[tokio::main]
 async fn main() -> Result<()> {
     let args: Vec<String> = std::env::args().collect();
@@ -136,7 +135,6 @@ impl HotmartDownloader {
         Ok(())
     }
 
-    // New method with progress callback
     pub async fn download_video_with_progress<F>(&self, embed_url: &str, progress_callback: F) -> Result<()>
     where
         F: Fn(usize, usize) + Send + Sync + 'static,
@@ -318,7 +316,6 @@ impl HotmartDownloader {
 
     async fn get_encryption_details(&self, _segment_url: &str) -> Result<Option<(String, Vec<u8>)>> {
         // Placeholder function to fetch key_url and IV from `.m3u8` playlist or segment headers
-        // Implement actual retrieval logic based on playlist format if applicable
         Ok(None)
     }
 
@@ -365,7 +362,7 @@ impl HotmartDownloader {
     async fn get_best_quality_stream(&self, master_url: &str) -> Result<String> {
         let master_playlist = self.client.get(master_url).send().await?.text().await?;
         let mut best_bandwidth = 0;
-        let mut best_url: Option<String> = None; // Updated to Option<String>
+        let mut best_url: Option<String> = None;
 
         for line in master_playlist.lines() {
             if line.starts_with("#EXT-X-STREAM-INF") {
@@ -387,7 +384,7 @@ impl HotmartDownloader {
 
         let stream_path = best_url.ok_or_else(|| anyhow!("No streams found"))?;
         let base_url = Url::parse(master_url)?;
-        let stream_url = base_url.join(&stream_path)?; // Pass directly as &String
+        let stream_url = base_url.join(&stream_path)?;
 
         Ok(stream_url.to_string())
     }
