@@ -15,7 +15,7 @@ url = "2.5"
 block-padding = "0.4.0-rc.2"
 hex = "0.4"
 cipher = "0.4.4"
-eframe = "0.29.1"  # egui framework
+eframe = "0.29.1"
 rfd = "0.12"
 winit = "0.30.5"
 winres = "0.1"
@@ -26,7 +26,7 @@ opt-level = 3
 lto = true
 codegen-units = 1
 panic = 'abort'
-strip = true  # Strips symbols from binary
+strip = true
 debug = false
 incremental = false
 
@@ -35,5 +35,4 @@ winres = "0.1"
 cc = "1.0"
 
 [features]
-# Empty features that can be used for dead code insertion
 never-enabled = []
