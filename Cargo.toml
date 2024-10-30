@@ -1,0 +1,39 @@
+[package]
+name = "Hotmart-Video-Ripper"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aes = "0.8.2"
+base64 = "0.21"
+cbc = { version = "0.1.2", features = ["alloc"] }
+anyhow = "1.0"
+tokio = { version = "1.0", features = ["full", "fs"] }
+reqwest = { version = "0.11", features = ["json", "gzip", "brotli", "deflate", "cookies"] }
+serde_json = "1.0"
+url = "2.5"
+block-padding = "0.4.0-rc.2"
+hex = "0.4"
+cipher = "0.4.4"
+eframe = "0.29.1"  # egui framework
+rfd = "0.12"
+winit = "0.30.5"
+winres = "0.1"
+cc = "1.0"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip = true  # Strips symbols from binary
+debug = false
+incremental = false
+
+[target.'cfg(target_os = "windows")'.build-dependencies]
+winres = "0.1"
+cc = "1.0"
+
+[features]
+# Empty features that can be used for dead code insertion
+never-enabled = []
